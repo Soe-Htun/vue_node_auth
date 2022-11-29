@@ -9,10 +9,13 @@ module.exports.register = function(req, res) {
         "created_at": today,
         "updated_at": today
     }
-    // const token = jwt.sign(
-    //     process.env.TOKEN_SECRET
-    // )
-    // users.token=token
+    const token = jwt.sign({email: req.body.email},
+        process.env.TOKEN_SECRET
+    )
+    const userList = {
+         ...users,
+         "token": token
+    }
 
     conn.query("INSERT INTO users SET ?", users, function(err, results, fields) {
         if(err) {
@@ -23,7 +26,7 @@ module.exports.register = function(req, res) {
         } else {
             res.json({
                 status:true,
-                data:users,
+                data:userList,
                 message:'user registered sucessfully'
             })
         }
