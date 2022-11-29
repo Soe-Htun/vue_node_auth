@@ -1,5 +1,5 @@
 const conn = require('../../config/database');
-
+const jwt = require('jsonwebtoken')
 module.exports.register = function(req, res) {
     const today = new Date();
     const users = {
@@ -9,6 +9,10 @@ module.exports.register = function(req, res) {
         "created_at": today,
         "updated_at": today
     }
+    // const token = jwt.sign(
+    //     process.env.TOKEN_SECRET
+    // )
+    // users.token=token
 
     conn.query("INSERT INTO users SET ?", users, function(err, results, fields) {
         if(err) {
@@ -19,7 +23,7 @@ module.exports.register = function(req, res) {
         } else {
             res.json({
                 status:true,
-                data:results,
+                data:users,
                 message:'user registered sucessfully'
             })
         }
