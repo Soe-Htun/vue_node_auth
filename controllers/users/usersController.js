@@ -1,6 +1,6 @@
 const conn = require('../../config/database')
 
-module.exports.users= function(req, res) {
+module.exports.getAllUsers= function(req, res) {
     conn.query("SELECT * FROM users", function(err, result) {
         if(err) throw err;
         res.json({
@@ -27,14 +27,18 @@ module.exports.updateUser = function(req,res) {
     const name = req.body.name;
     const email = req.body.email;
     const password = req.body.password;
+    const updated_at = new Date()
+
     const id = req.params.id
-    conn.query("UPDATE users SET name=?, email=?, password=? WHERE id=?", [name, email, password, id],
+
+    const mysql_query = "UPDATE users SET name=?, email=?, password=?, updated=? WHERE id=?"
+    conn.query(mysql_query, [name, email, password, updated_at, id],
         function(err, result) {
             if(err) throw err;
             res.json({
                 status:200,
                 data: result,
-                message:'delete successfully'
+                message:'update successfully'
             })
         }
     )
