@@ -44,8 +44,8 @@ module.exports.updateRoom = function(req, res) {
     const status = req.body.status
     const updated_at = new Date()
 
-    const mysql_query = "UPDATE meeting_rooms SET name=?, bu_br_div=?, location=?, status=?, updated_at=? WHERE id=?"
-    conn.query(mysql_query, [name, bu_br_div, location, status, updated_at, id], 
+    const sql_query = "UPDATE meeting_rooms SET name=?, bu_br_div=?, location=?, status=?, updated_at=? WHERE id=?"
+    conn.query(sql_query, [name, bu_br_div, location, status, updated_at, id], 
         function(err, result) {
             if(err) throw err;
             res.json({

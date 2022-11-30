@@ -15,7 +15,7 @@ router.get('/api/admin/v1/users/:id', user.isAuthorized, usersController.findUse
 router.patch('/api/admin/v1/users/:id', user.isAuthorized, usersController.updateUser)
 router.delete('/api/admin/v1/users/:id', user.isAuthorized, usersController.deleteUser)
 
-router.get('/api/admin/v1/rooms', roomsController.getRooms)
-router.post('/api/admin/v1/rooms', roomsController.createRoom)
-router.patch('/api/admin/v1/rooms/:id', roomsController.updateRoom)
+router.get('/api/admin/v1/rooms', user.isAuthorized, roomsController.getRooms)
+router.post('/api/admin/v1/rooms', user.isAuthorized, roomsController.createRoom)
+router.patch('/api/admin/v1/rooms/:id', user.isAuthorized, roomsController.updateRoom)
 module.exports = router

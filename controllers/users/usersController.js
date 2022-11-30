@@ -31,8 +31,8 @@ module.exports.updateUser = function(req,res) {
 
     const id = req.params.id
 
-    const mysql_query = "UPDATE users SET name=?, email=?, password=?, updated=? WHERE id=?"
-    conn.query(mysql_query, [name, email, password, updated_at, id],
+    const sql_query = "UPDATE users SET name=?, email=?, password=?, updated_at=? WHERE id=?"
+    conn.query(sql_query, [name, email, password, updated_at, id],
         function(err, result) {
             if(err) throw err;
             res.json({
