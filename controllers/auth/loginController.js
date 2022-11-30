@@ -21,7 +21,7 @@ module.exports.login= function(req, res) {
                    "token": token
                 }
                   res.json({
-                      status:true,
+                      status:200,
                       data: userList,
                       message:'login successfully'
                   })
