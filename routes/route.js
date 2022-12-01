@@ -7,8 +7,10 @@ const usersController = require('../controllers/users/usersController')
 const user = require('../controllers/authorize')
 const roomsController = require('../controllers/meetingRoom/roomController')
 
+const { validate } = require('../validation/validation')
+
 router.post('/api/auth/v1/register', registerController.register)
-router.post('/api/auth/v1/login', loginController.login)
+router.post('/api/auth/v1/login', validate(loginController.loginValidation), loginController.login)
 
 router.get('/api/admin/v1/users', user.isAuthorized, usersController.getAllUsers)
 router.get('/api/admin/v1/users/:id', user.isAuthorized, usersController.findUser)

@@ -1,12 +1,18 @@
 const conn = require('../../config/database')
 const jwt = require('jsonwebtoken')
+const Joi = require('joi')
 
+module.exports.loginValidation = Joi.object().keys({
+  email: Joi.string().email().required().messages({"string.email": "Enter valid email", "string.empty": "Email is required"}),
+  password: Joi.string().min(6).required().messages({"string.min": "Password must be at least 6 characters", "string.empty": 'Password is required' })
+})
 module.exports.login= function(req, res) {
     const token = jwt.sign({email: req.body.email},
         process.env.TOKEN_SECRET
     )
     const email = req.body.email;
     const password = req.body.password;
+
     conn.query("SELECT * FROM users WHERE email = ?", [email], function(err, results, fields) {
         if (err) {
             res.json({
@@ -16,6 +22,7 @@ module.exports.login= function(req, res) {
         }else{
           if(results.length >0){
               if(password==results[0].password){
+                
                 const userList = {
                    "userInfo": results[0],
                    "token": token
