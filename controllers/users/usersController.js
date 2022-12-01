@@ -2,24 +2,34 @@ const conn = require('../../config/database')
 
 module.exports.getAllUsers= function(req, res) {
     conn.query("SELECT * FROM users", function(err, result) {
-        if(err) throw err;
-        res.json({
-            status:true,
-            data:result,
-            message:'get all users sucessfully'
-        })
+        if(err){
+            res.status(401).json({
+                message: 'Something went wrong'
+            })
+        } else {
+            res.json({
+                status:true,
+                data:result,
+                message:'get all users sucessfully'
+            })
+        }
+        
     })
 }
 
 module.exports.findUser = function(req,res) {
     const id = req.params.id
     conn.query("SELECT * FROM users WHERE id=?", [id], function(err, result) {
-        if(err) throw err;
-        res.json({
-            status:true,
-            data: result,
-            message:'get data with ID successfully'
-        })
+        if(err){
+            res.status(401).json({
+                message: 'Something went wrong'
+            })
+        } else {
+            res.status(200).json({
+                data: result,
+                message:'get data with ID successfully'
+            })
+        }
     });
 }
 
@@ -34,12 +44,17 @@ module.exports.updateUser = function(req,res) {
     const sql_query = "UPDATE users SET name=?, email=?, password=?, updated_at=? WHERE id=?"
     conn.query(sql_query, [name, email, password, updated_at, id],
         function(err, result) {
-            if(err) throw err;
-            res.json({
-                status:200,
-                data: result,
-                message:'update successfully'
-            })
+            if(err){
+                res.status(401).json({
+                    message: 'Something went wrong'
+                })
+            } else {
+                res.json({
+                    status:200,
+                    data: result,
+                    message:'update successfully'
+                })
+            }
         }
     )
 }

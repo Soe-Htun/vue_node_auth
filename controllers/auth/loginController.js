@@ -26,17 +26,15 @@ module.exports.login= function(req, res) {
                       message:'login successfully'
                   })
               }else{
-                  res.json({
-                    status:false,
+                   res.status(401).json({
                     message:"Incorrect password"
-                   });
+                  })
               }
           }
           else{
-            res.json({
-                status:false,	
-                message:"Email does not exits"
-            });
+            res.status(401).json({
+              message:"Email does not exits"
+            })
           }
         }
     })

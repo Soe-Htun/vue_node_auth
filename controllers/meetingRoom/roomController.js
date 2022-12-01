@@ -22,13 +22,11 @@ module.exports.createRoom = function(req, res) {
     }
     conn.query("INSERT INTO meeting_rooms SET ?", rooms, function(err, result) {
         if(err) {
-            res.json({
-                status: false,
+            res.status(401).json({
                 message: 'there are some errror with query'
             })
         } else {
-            res.json({
-                status:201,
+            res.status(201).json({
                 data: rooms,
                 message:'user registered sucessfully'
             })
@@ -48,10 +46,14 @@ module.exports.updateRoom = function(req, res) {
     conn.query(sql_query, [name, bu_br_div, location, status, updated_at, id], 
         function(err, result) {
             if(err) throw err;
-            res.json({
-                status: 200,
+            // res.json({
+            //     status: 200,
+            //     data: result,
+            //     message: 'Update success'
+            // })
+            res.status(200).json({
                 data: result,
-                message: 'Update success'
+                message:'Update success'
             })
         }
     )

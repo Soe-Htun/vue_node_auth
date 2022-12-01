@@ -3,8 +3,7 @@ module.exports.isAuthorized = function(req, res, next) {
     try {
         const token = req.headers.authorization.split(' ')[1];
         if (!token){
-            res.json({
-                status: 403,
+            res.status(401).json({
                 message: 'Unauthorized'
             })
         }
@@ -13,9 +12,8 @@ module.exports.isAuthorized = function(req, res, next) {
         req.user = decoded;
         next();
     } catch (error) {
-        res.json({
-            status: 400,
-            message: 'Invalid token'
+        res.status(401).json({
+            message: 'Invalid Token'
         })
     }
 }

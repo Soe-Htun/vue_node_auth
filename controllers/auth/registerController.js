@@ -11,13 +11,17 @@ module.exports.register = function(req, res) {
 
     conn.query("INSERT INTO users SET ?", users, function(err, results, fields) {
         if(err) {
-            res.json({
-                status: false,
-                message: 'there are some errror with query'
+            res.status(401).json({
+                message:"there are some errror with query"
             })
+            
         } else {
-            res.json({
-                status:201,
+            // res.json({
+            //     status:201,
+            //     data:users,
+            //     message:'user registered sucessfully'
+            // })
+            res.status(201).json({
                 data:users,
                 message:'user registered sucessfully'
             })
