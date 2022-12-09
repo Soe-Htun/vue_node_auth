@@ -46,11 +46,6 @@ module.exports.updateRoom = function(req, res) {
     conn.query(sql_query, [name, bu_br_div, location, status, updated_at, id], 
         function(err, result) {
             if(err) throw err;
-            // res.json({
-            //     status: 200,
-            //     data: result,
-            //     message: 'Update success'
-            // })
             res.status(200).json({
                 data: result,
                 message:'Update success'
