@@ -5,7 +5,7 @@ module.exports.createMeeting = function(req, res) {
     const meetings = {
         "title" : req.body.title,
         "room_id": req.body.room.room_id,
-        "room_name": req.body.room_name,
+        "room_name": req.body.room.room_name,
         "start_time": req.body.start_time,
         "end_time": req.body.end_time,
         "created_at": today,
