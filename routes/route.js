@@ -13,6 +13,7 @@ const { validate } = require('../validation/validation')
 router.post('/api/auth/v1/register', registerController.register)
 router.post('/api/auth/v1/login', validate(loginController.loginValidation), loginController.login)
 
+router.post('/api/admin/v1/users', user.isAuthorized, usersController.createUser)
 router.get('/api/admin/v1/users', user.isAuthorized, usersController.getAllUsers)
 router.get('/api/admin/v1/users/:id', user.isAuthorized, usersController.findUser)
 router.patch('/api/admin/v1/users/:id', user.isAuthorized, usersController.updateUser)
@@ -23,5 +24,6 @@ router.post('/api/admin/v1/rooms', user.isAuthorized, roomsController.createRoom
 router.patch('/api/admin/v1/rooms/:id', user.isAuthorized, roomsController.updateRoom)
 
 router.post('/api/admin/v1/createMeety', meeetingsController.createMeeting)
+router.get('/api/admin/v1/getAllMeety', meeetingsController.getAllMeetings)
 
 module.exports = router
