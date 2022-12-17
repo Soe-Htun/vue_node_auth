@@ -31,7 +31,7 @@ module.exports.getAllUsers= function(req, res) {
     conn.query("SELECT * FROM users", function(err, result) {
         if(err){
             res.status(401).json({
-                message: 'Something went wrong'
+                message: 'User not found'
             })
         } else {
             res.json({

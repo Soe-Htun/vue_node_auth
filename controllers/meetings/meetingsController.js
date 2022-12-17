@@ -1,3 +1,4 @@
+const { json } = require('body-parser')
 const conn = require('../../config/database')
 
 module.exports.createMeeting = function(req, res) {
@@ -7,13 +8,14 @@ module.exports.createMeeting = function(req, res) {
         "room_id": req.body.room.room_id,
         "start_time": req.body.start_time,
         "end_time": req.body.end_time,
+        "emp_id": JSON.stringify(req.body.emp_id),
         "created_at": today,
         "updated_at": today
     }
     conn.query("INSERT INTO all_meetings SET ?", meetings, function(err, result) {
         if(err) {
             res.status(402).json({
-                message: "There are some error with query"
+                message: err
             })
         } else {
             res.json({

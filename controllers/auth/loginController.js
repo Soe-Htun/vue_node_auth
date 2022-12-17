@@ -13,6 +13,15 @@ module.exports.login= function(req, res) {
     const email = req.body.email;
     const password = req.body.password;
 
+    // const auth = (req, res, next) => {
+    //   const authHeader = req.headers["authorization"];
+    //   const token = authHeader && authHeader.split(" ")[1];
+    //   if(!token)
+    //     return res.status(401).json({ "msg": "invalid: no token provided " });
+
+    //   jwt.verify(token, )
+    // }
+
     conn.query("SELECT * FROM users WHERE email = ?", [email], function(err, results, fields) {
         if (err) {
             res.json({
